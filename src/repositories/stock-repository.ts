@@ -7,7 +7,11 @@ const stockRepository = {
         const sql = "INSERT INTO Stocks (companyName, symbol, currentPrice, description) VALUES (?, ?, ?, ?)";
         const params = [stock.companyName, stock.symbol, stock.currentPrice, stock.description];
         database.run(sql, params, function (_err) {
-            callback(this?.lastID);
+            if (_err) {
+                console.log(_err);
+            } else {
+                callback(this.lastID);
+            }
         });
     },
     getAll: (callback: (stocks: Stock[]) => void) => {

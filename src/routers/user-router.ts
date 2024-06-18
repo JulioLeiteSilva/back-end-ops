@@ -16,7 +16,9 @@ userRouter.post('/users', (req, res) => {
 });
 
 userRouter.get('/users/:id', (req, res) => {
+    console.log("dasd");
     const id = parseInt(req.params.id);
+    console.log(id);
     userRepository.getById(id, (user) => {
         if (user) {
             res.send(user);

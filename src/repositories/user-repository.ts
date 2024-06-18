@@ -4,10 +4,15 @@ import User from "../models/user-model";
 const userRepository = {
     addNew: (user: User, callback: (id?: number) => void) => {
         console.log(user);
-        const sql = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
+        console.log(sql);
         const params = [user.username, user.password, user.email];
         database.run(sql, params, function (_err) {
-            callback(this?.lastID);
+            if (_err) {
+                console.log(_err);
+            } else {
+                callback(this.lastID);
+            }
         });
     },
     getById: (id: number, callback: (user?: User) => void) => {
